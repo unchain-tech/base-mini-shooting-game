@@ -54,7 +54,7 @@ npx create-onchain@latest --mini
     FARCASTER_HEADER=
     FARCASTER_PAYLOAD=
     FARCASTER_SIGNATURE=
-    ``` 
+    ```
 
   - スマートコントラクトのデプロイ
 

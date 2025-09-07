@@ -31,9 +31,9 @@ const KEY_REGISTRY_ABI = [
 
 /**
  * FID が該当のアプリ鍵（key）を所有しているかチェーン上で検証するメソッド
- * @param fid 
- * @param appKey 
- * @returns 
+ * @param fid
+ * @param appKey
+ * @returns
  */
 async function verifyFidOwnership(fid: number, appKey: `0x${string}`) {
   const client = createPublicClient({
@@ -59,8 +59,8 @@ async function verifyFidOwnership(fid: number, appKey: `0x${string}`) {
 
 /**
  * デコードするメソッド
- * @param encoded 
- * @returns 
+ * @param encoded
+ * @returns
  */
 function decode(encoded: string) {
   return JSON.parse(Buffer.from(encoded, 'base64url').toString('utf-8'));
@@ -70,8 +70,8 @@ function decode(encoded: string) {
  * Farcaster の Webhook を受け取り、
  * フレームの追加・削除、通知の有効化・無効化等のイベントに応じて
  * ユーザーの通知設定を保存・削除し、必要に応じて歓迎通知を送ります。
- * @param request 
- * @returns 
+ * @param request
+ * @returns
  */
 export async function POST(request: Request) {
   const requestJson = await request.json();
