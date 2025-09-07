@@ -15,7 +15,7 @@ function intersects(a: Rect, b: Rect) {
 }
 
 /**
- * ShootingGame component
+ * シューティングゲーム コンポーネント
  * @returns
  */
 export function ShootingGame() {
@@ -291,6 +291,7 @@ export function ShootingGame() {
   }, [BASE_W, BASE_H, fitCanvas, running, gameOver, startGame, loop]);
 
   // NFTを発行するためのコールデータ
+  // 倒した敵の数分をNFTとして発行する
   const calls = useMemo(
     () =>
       address && score > 0
@@ -299,7 +300,6 @@ export function ShootingGame() {
               address: NFT_ADDRESS as `0x${string}`,
               abi: SHOOTING_GAME_NFT_ABI,
               functionName: 'mint',
-              // amount(=score) must be > 0 to avoid revert on ERC1155
               args: [address as `0x${string}`, 0, score, '0x'] as [string, number, number, string],
             },
           ]

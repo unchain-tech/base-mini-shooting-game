@@ -1,14 +1,14 @@
 'use client';
 
-// アプリ全体のプロバイダー（MiniKitProvider）
-// - OnchainKit の設定（API Key / Chain / 外観）
-// - フレームの文脈や Wagmi のコネクタを内部で設定
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit';
 import { type ReactNode } from 'react';
 import { baseSepolia } from 'wagmi/chains';
 
 /**
  * Providers コンポーネント
+ * アプリ全体のプロバイダー（MiniKitProvider）
+ * - OnchainKit の設定（API Key / Chain / 外観）
+ * - フレームの文脈や Wagmi のコネクタを内部で設定
  * @param props
  * @returns
  */
