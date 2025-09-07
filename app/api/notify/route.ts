@@ -1,8 +1,12 @@
-// 通知送信用 API エンドポイント
-// リクエストで渡された fid と通知内容を使って Farcaster 通知を送信します。
 import { sendFrameNotification } from '@/lib/notification-client';
 import { NextResponse } from 'next/server';
 
+/**
+ * 通知送信用 API エンドポイント
+ * リクエストで渡された fid と通知内容を使って Farcaster 通知を送信します。
+ * @param request 
+ * @returns 
+ */
 export async function POST(request: Request) {
   try {
     const body = await request.json();

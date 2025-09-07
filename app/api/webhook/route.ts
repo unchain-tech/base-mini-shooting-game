@@ -1,13 +1,9 @@
-// Farcaster の Webhook を受け取り、
-// フレームの追加・削除、通知の有効化・無効化等のイベントに応じて
-// ユーザーの通知設定を保存・削除し、必要に応じて歓迎通知を送ります。
 import { deleteUserNotificationDetails, setUserNotificationDetails } from '@/lib/notification';
 import { sendFrameNotification } from '@/lib/notification-client';
 import { createPublicClient, http } from 'viem';
 import { baseSepolia } from 'viem/chains';
 
 const appName = process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME;
-
 const KEY_REGISTRY_ADDRESS = '0x00000000Fc1237824fb747aBDE0FF18990E59b7e';
 
 // Farcaster Key Registry（FID とアプリ鍵の紐付け確認に使用）
@@ -33,7 +29,12 @@ const KEY_REGISTRY_ABI = [
   },
 ] as const;
 
-// FID が該当のアプリ鍵（key）を所有しているかチェーン上で検証
+/**
+ * FID が該当のアプリ鍵（key）を所有しているかチェーン上で検証するメソッド
+ * @param fid 
+ * @param appKey 
+ * @returns 
+ */
 async function verifyFidOwnership(fid: number, appKey: `0x${string}`) {
   const client = createPublicClient({
     chain: baseSepolia,
@@ -56,10 +57,22 @@ async function verifyFidOwnership(fid: number, appKey: `0x${string}`) {
   }
 }
 
+/**
+ * デコードするメソッド
+ * @param encoded 
+ * @returns 
+ */
 function decode(encoded: string) {
   return JSON.parse(Buffer.from(encoded, 'base64url').toString('utf-8'));
 }
 
+/**
+ * Farcaster の Webhook を受け取り、
+ * フレームの追加・削除、通知の有効化・無効化等のイベントに応じて
+ * ユーザーの通知設定を保存・削除し、必要に応じて歓迎通知を送ります。
+ * @param request 
+ * @returns 
+ */
 export async function POST(request: Request) {
   const requestJson = await request.json();
 
@@ -84,6 +97,7 @@ export async function POST(request: Request) {
       if (event.notificationDetails) {
         // ユーザーがフレームを追加し、通知を許可している場合
         await setUserNotificationDetails(fid, event.notificationDetails);
+        // 通知する
         await sendFrameNotification({
           fid,
           title: `Welcome to ${appName}`,
