@@ -7,8 +7,6 @@
 
 import { Footer, Header } from '@/components/common';
 import { Home } from '@/components/DemoComponents';
-import { useMiniKit } from '@coinbase/onchainkit/minikit';
-import { useEffect } from 'react';
 
 /**
  * App コンポーネント
@@ -16,13 +14,6 @@ import { useEffect } from 'react';
  */
 export default function App() {
   // MiniKit のコンテキスト（フレーム準備完了フラグやクライアント状態）
-  const { setFrameReady, isFrameReady } = useMiniKit();
-
-  useEffect(() => {
-    if (!isFrameReady) {
-      setFrameReady();
-    }
-  }, [setFrameReady, isFrameReady]);
 
   return (
     <div className="mini-app-theme flex min-h-screen flex-col from-[var(--app-background)] to-[var(--app-gray)] font-sans text-[var(--app-foreground)]">
